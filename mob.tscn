@@ -1,0 +1,73 @@
+[gd_scene load_steps=10 format=3 uid="uid://vd55gf21tx75"]
+
+[ext_resource type="Texture2D" uid="uid://bpurk63888klo" path="res://art/enemyFlyingAlt_1.png" id="1_0l5wv"]
+[ext_resource type="Script" path="res://mob.gd" id="1_qu8sp"]
+[ext_resource type="Texture2D" uid="uid://tq0pq74yepov" path="res://art/enemyFlyingAlt_2.png" id="2_wktbp"]
+[ext_resource type="Texture2D" uid="uid://clbdgjd3txqg0" path="res://art/enemySwimming_1.png" id="3_oh6f2"]
+[ext_resource type="Texture2D" uid="uid://brvj85pfro44y" path="res://art/enemySwimming_2.png" id="4_jugef"]
+[ext_resource type="Texture2D" uid="uid://bb7e2a77o4jet" path="res://art/enemyWalking_1.png" id="5_r6t2b"]
+[ext_resource type="Texture2D" uid="uid://c0kvrg022muq7" path="res://art/enemyWalking_2.png" id="6_bleso"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_86hb4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_0l5wv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_wktbp")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_oh6f2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_jugef")
+}],
+"loop": true,
+"name": &"swim",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_r6t2b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_bleso")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_28nyr"]
+radius = 38.71
+height = 96.56
+
+[node name="Mob" type="RigidBody2D" groups=["mobs"]]
+position = Vector2(241, 356)
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_qu8sp")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_86hb4")
+animation = &"walk"
+frame_progress = 0.297564
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_28nyr")
+metadata/_edit_group_ = true
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+metadata/_edit_group_ = true
+
+[connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_exited"]
